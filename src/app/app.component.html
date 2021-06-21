@@ -1,0 +1,18 @@
+<div>
+    <h1>Questions 4 </h1>
+    <h1>Select a color to show all your valid moves</h1>
+<select class="form-select" (change)="[this.changeClassName(),validMovementByColor()]" [(ngModel)]="selectedColor" aria-label="Default select example">
+    <option value="">--To select--</option>
+    <option value="red">Red</option>
+    <option value="white">White</option>
+  </select>
+
+</div>
+
+<section id="board">
+<div  *ngFor="let number of numbers;let row=index" >
+    <div (click)="possibleMovementPiece(div)"  *ngFor="let number of numbers;let column=index" [id]="row+'-'+column" #div [ngClass]="this.board.isValidBox(row,column) ? 'brown' : 'lightBrown'" >
+         <img (click)="[this.clearEnemyPiece(), possibleMovements({position:row+'-'+column})]" *ngIf="this.board.showPicture(div)" [src]="showPiece(row,column)">
+    </div>
+</div>
+</section>
