@@ -1,3 +1,4 @@
+import { cpuUsage } from 'process';
 import { ColorPiece } from '../enums/color-piece.enum';
 import { ImgPiece } from '../enums/img-piece.enum';
 import { Piece } from '../interface/piece.interface';
@@ -7,7 +8,7 @@ export class Board extends EnemyPiece {
   public pieces: Piece[] = [];
 
   fillPieces(row: number = 0): number {
-    if (row == 9) return;
+    if (row == 8) return;
     for (let column = 0; column <= 7; column++) {
       if (this.isValidBox(row, column) && (column <= 2 || column >= 5))
         this.addPiece(row, column);
@@ -81,5 +82,9 @@ export class Board extends EnemyPiece {
     return `../assets/${
       color == ColorPiece.white ? ImgPiece.kingWhite : ImgPiece.kingRed
     }`;
+  }
+
+  countPieceBoardByColor(color: string): number {
+    return this.pieces.filter((piece) => piece.color == color).length;
   }
 }

@@ -15,6 +15,7 @@ export class AppComponent {
   numbers = [0, 1, 2, 3, 4, 5, 6, 7];
   selectedPiece = '';
   selectedColor = '';
+  turn = 'red';
 
   constructor(public board: Board) {}
 
@@ -271,6 +272,12 @@ export class AppComponent {
 
     const indexpiece = this.board.findIndexpieceByPosition(this.selectedPiece);
     const { color } = this.board.pieces[indexpiece];
+    if (color != this.turn) {
+      alert(`The turn is for the pieces ${this.turn}.`);
+      return;
+    }
+
+    this.turn = this.turn == ColorPiece.red ? ColorPiece.white : ColorPiece.red;
 
     const [row, column] = newPositionPiece.split('-');
     /**
@@ -351,6 +358,12 @@ export class AppComponent {
           break;
         this.board.removePieceByIndex(index);
       }
+    }
+
+    if (this.board.countPieceBoardByColor(ColorPiece.red) == 0) {
+      alert('White piece winner');
+    } else if (this.board.countPieceBoardByColor(ColorPiece.white) == 0) {
+      alert('Red piece winner');
     }
   }
 
